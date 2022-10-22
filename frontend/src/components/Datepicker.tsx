@@ -68,8 +68,11 @@ const Datepicker = ({ selectedDate, setSelectedDate }: DatepickerProps) => {
         <div>S</div>
         <div>D</div>
       </div>
+
+      {/* Inicio de la division que contiene el calendario */}
       <div className="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
         {days.map((day, dayIdx) => {
+          const today = new Date();
           const isSelected =
             selectedDate && day.date.toDateString() === selectedDate.toDateString();
 
@@ -78,15 +81,21 @@ const Datepicker = ({ selectedDate, setSelectedDate }: DatepickerProps) => {
               key={dayIdx}
               type="button"
               onClick={() => {
-                const newSelectedDate = new Date(day.date.setHours(month.getHours()));
-                setSelectedDate(newSelectedDate);
+                if (day.date.getDate() >= today.getDate()) {
+                  const newSelectedDate = new Date(day.date.setHours(month.getHours()));
+                  setSelectedDate(newSelectedDate);
+                }
               }}
               className={classNames(
                 "py-1.5 hover:bg-gray-100 focus:z-10",
                 day.isCurrentMonth ? "bg-white" : "bg-gray-50",
+                {/*day.isToday ? "bg-white" : "bg-gray-50",
+                (day.date.getMonth() >= today.getMonth()) ? "bg-white" : "bg-gray-50",
+                (day.date.getDate() > today.getDate()) ? "bg-white" : "bg-gray-50",*/}
                 isSelected || day.isToday ? "font-semibold" : "",
                 isSelected ? "text-white" : "",
-                !isSelected && day.isCurrentMonth && !day.isToday ? "text-gray-900" : "",
+                {/*!isSelected && day.isCurrentMonth && !day.isToday ? "text-gray-900" : "",*/}
+                !isSelected && day.isCurrentMonth && (day.date < today) ? "text-gray-900" : "",
                 !isSelected && !day.isCurrentMonth && !day.isToday ? "text-gray-400" : "",
                 day.isToday && !isSelected ? "text-primary" : "",
                 dayIdx === 0 ? "rounded-tl-lg" : "",
