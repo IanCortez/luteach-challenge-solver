@@ -55,7 +55,17 @@ const CreateBookingSection = ({
         );
       case "SELECT_START_TIME":
         const time = new Date();
-        time.setHours(5, 0, 0, 0);
+        let counter: number = 18;
+
+        if ((selectedDate.getDate() === time.getDate()) && 
+            (selectedDate.getMonth() === time.getMonth()) && 
+            (selectedDate.getFullYear() === time.getFullYear())){
+              time.setHours(time.getHours()-1 + Math.round(time.getMinutes()/60));
+              time.setMinutes(0, 0, 0);
+              counter = 24-time.getHours()+1;
+        } else {
+          time.setHours(5, 0, 0, 0);
+        }
 
         return (
           <div>
@@ -68,7 +78,7 @@ const CreateBookingSection = ({
             <div className="flex flex-col justify-center items-center text-lg">
               <p> Hora de Inicio</p>
               <div className="flex flex-wrap justify-around space-y-2 ">
-                {Array.from({ length: 18 }, (x, i) => {
+                {Array.from({ length: counter }, (x, i) => {
                   time.setHours(time.getHours() + 1);
                   return (
                     <IconButton
