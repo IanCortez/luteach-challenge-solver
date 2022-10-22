@@ -81,21 +81,18 @@ const Datepicker = ({ selectedDate, setSelectedDate }: DatepickerProps) => {
               key={dayIdx}
               type="button"
               onClick={() => {
-                if (day.date.getDate() >= today.getDate()) {
+                if (day.date.getDate() >= today.getDate() || day.date.getMonth() >= today.getMonth()) {
                   const newSelectedDate = new Date(day.date.setHours(month.getHours()));
                   setSelectedDate(newSelectedDate);
                 }
               }}
               className={classNames(
                 "py-1.5 hover:bg-gray-100 focus:z-10",
+                (day.isToday || (day.date > today)) ? "bg-white" : "bg-gray-50",
                 day.isCurrentMonth ? "bg-white" : "bg-gray-50",
-                {/*day.isToday ? "bg-white" : "bg-gray-50",
-                (day.date.getMonth() >= today.getMonth()) ? "bg-white" : "bg-gray-50",
-                (day.date.getDate() > today.getDate()) ? "bg-white" : "bg-gray-50",*/}
                 isSelected || day.isToday ? "font-semibold" : "",
                 isSelected ? "text-white" : "",
-                {/*!isSelected && day.isCurrentMonth && !day.isToday ? "text-gray-900" : "",*/}
-                !isSelected && day.isCurrentMonth && (day.date < today) ? "text-gray-900" : "",
+                !isSelected && day.isCurrentMonth && !day.isToday ? "text-gray-900" : "",
                 !isSelected && !day.isCurrentMonth && !day.isToday ? "text-gray-400" : "",
                 day.isToday && !isSelected ? "text-primary" : "",
                 dayIdx === 0 ? "rounded-tl-lg" : "",
