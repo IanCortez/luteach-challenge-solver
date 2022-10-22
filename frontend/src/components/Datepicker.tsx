@@ -81,7 +81,7 @@ const Datepicker = ({ selectedDate, setSelectedDate }: DatepickerProps) => {
               key={dayIdx}
               type="button"
               onClick={() => {
-                if (day.date.getDate() >= today.getDate() || day.date.getMonth() >= today.getMonth()) {
+                if (day.date >= today || day.isToday) {
                   const newSelectedDate = new Date(day.date.setHours(month.getHours()));
                   setSelectedDate(newSelectedDate);
                 }
