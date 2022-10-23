@@ -10,7 +10,7 @@
 
 ## Frontend Tasks
 
-- [ ] Don't let the user book a date in the past
+- [x] Don't let the user book a date in the past
 - [ ] Implement a delete booking button
 - [ ] Show them a message when the booking is successful
 - [ ] Show them a message when the booking is not successful
