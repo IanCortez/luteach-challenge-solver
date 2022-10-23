@@ -60,9 +60,13 @@ const CreateBookingSection = ({
         if ((selectedDate.getDate() === time.getDate()) && 
             (selectedDate.getMonth() === time.getMonth()) && 
             (selectedDate.getFullYear() === time.getFullYear())){
-              time.setHours(time.getHours()-1 + Math.round(time.getMinutes()/60));
-              time.setMinutes(0, 0, 0);
-              counter = 24-time.getHours()+1;
+              if (time.getHours() <= 5) {
+                time.setHours(5, 0, 0, 0);
+              } else { 
+                time.setHours(time.getHours()-1 + Math.round(time.getMinutes()/60));
+                time.setMinutes(0, 0, 0);
+                counter = 24-time.getHours()-1;
+              }
         } else {
           time.setHours(5, 0, 0, 0);
         }
@@ -85,7 +89,7 @@ const CreateBookingSection = ({
                       key={i}
                       onClick={() =>
                         handleSelectStartTime(
-                          new Date(selectedDate.setHours(i + 6, 0, 0, 0))
+                          new Date(selectedDate.setHours(i + (24-counter), 0, 0, 0))
                         )
                       }
                     >
