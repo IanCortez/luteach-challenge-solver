@@ -17,7 +17,15 @@ export const createBooking = async (
   return response.data;
 }
 
+export const deleteBooking = async (
+  data: BookingResponse,
+): Promise<AxiosResponse<BookingResponse>> => {
+  const response = await axios.delete(`${CHALLENGE_API}/bookings/${data.id}/`);
+  return response.data;
+}
+
 export const BookingsService = {
   getBookings,
   createBooking,
+  deleteBooking,
 };
