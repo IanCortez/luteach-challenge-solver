@@ -15,3 +15,8 @@ class BookingViewSet(ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = []
+
+    def destroy(self, request, *args, **kwargs):
+        booking = self.get_object()
+        booking.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
