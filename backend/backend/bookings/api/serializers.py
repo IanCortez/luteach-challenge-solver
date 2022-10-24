@@ -18,7 +18,7 @@ class BookingSerializer(ModelSerializer):
         reserved_start_time = timezone.datetime.time(data['date'])
         current_time = timezone.now().time()
 
-        if reserved_start_date < current_date or reserved_start_time < current_time:
+        if reserved_start_date <= current_date and reserved_start_time < current_time:
             raise serializers.ValidationError({"date": "You can't book on a past date"})
 
         if data['buyer'] == data['provider']:
