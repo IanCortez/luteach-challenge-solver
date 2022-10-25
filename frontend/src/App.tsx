@@ -101,7 +101,7 @@ export default function App() {
         <div className="text-center mx-4 space-y-2">
           <h2 className="text-xl prose prose-stone">Lista de bookings</h2>
           <div className="bg-bermuda">
-            <table className="table-auto border-separate border border-secondary">
+            <table className="table-auto border-separate border-spacing-2 border border-secondary">
               <tr className="bg-primary">
                 <th className="border border-zinc-500">Buyer</th>
                 <th className="border border-zinc-500">Provider</th>
