@@ -98,40 +98,42 @@ export default function App() {
         >
           Crear
         </IconButton>
-        <div className="">
+        <div className="text-center mx-4 space-y-2">
           <p>Lista de bookings:</p>
-          <table className="table-fixed border-separate border border-zinc-500">
-            <tr>
-              <th className="border border-zinc-500">Buyer</th>
-              <th className="border border-zinc-500">Provider</th>
-              <th className="border border-zinc-500">Date</th>
-              <th className="border border-zinc-500">Time</th>
-              <th className="border border-zinc-500">Duration</th>
-              <th className="border border-zinc-500">Delete booking</th>       
-            </tr>
-            {bookings.map((booking) => {
-              // TO DO: actualizar la pagina al eliminar un booking
-              return (
-                <tr key={booking.id}>
-                  <td className="border border-zinc-500">{booking.buyer}</td>
-                  <td className="border border-zinc-500">{booking.provider}</td>
-                  <td className="border border-zinc-500">{booking.date.toDateString()}</td>
-                  <td className="border border-zinc-500">{booking.date.toTimeString()}</td>
-                  <td className="border border-zinc-500">{booking.duration} minutes</td>
-                  <td className="border border-zinc-500">
-                  <IconButton
-                    onClick={() => {
-                      deleteBooking(booking);
-                      setBookings(bookings);
-                    }}
-                  >
-                    Borrar
-                  </IconButton>
-                  </td>
-                </tr>
+          <div className="bg-teal-300">
+            <table className="table-fixed border-separate border border-zinc-500">
+              <tr>
+                <th className="border border-zinc-500">Buyer</th>
+                <th className="border border-zinc-500">Provider</th>
+                <th className="border border-zinc-500">Date</th>
+                <th className="border border-zinc-500">Time</th>
+                <th className="border border-zinc-500">Duration</th>
+                <th className="border border-zinc-500">Delete booking</th>       
+              </tr>
+              {bookings.map((booking) => {
+                // TO DO: actualizar la pagina al eliminar un booking
+                return (
+                  <tr key={booking.id}>
+                    <td className="border border-zinc-500">{booking.buyer}</td>
+                    <td className="border border-zinc-500">{booking.provider}</td>
+                    <td className="border border-zinc-500">{booking.date.toDateString()}</td>
+                    <td className="border border-zinc-500">{booking.date.toTimeString()}</td>
+                    <td className="border border-zinc-500">{booking.duration} minutes</td>
+                    <td className="border border-zinc-500">
+                    <IconButton
+                      onClick={() => {
+                        deleteBooking(booking);
+                        setBookings(bookings);
+                      }}
+                    >
+                      Borrar
+                    </IconButton>
+                    </td>
+                  </tr>
+                )}
               )}
-            )}
-          </table>
+            </table>
+          </div>
         </div>
       </div>
       <Modal open={showCreateBookingModal} setOpen={setShowCreateBookingModal}>
