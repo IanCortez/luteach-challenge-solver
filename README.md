@@ -11,8 +11,8 @@
 ## Frontend Tasks
 
 - [x] Don't let the user book a date in the past
-- [ ] Implement a delete booking button
-- [ ] Show them a message when the booking is successful
+- [x] Implement a delete booking button
+- [x] Show them a message when the booking is successful
 - [ ] Show them a message when the booking is not successful
 - [ ] Make it look as good as possible (follow your heart 💓)
 
@@ -21,4 +21,4 @@
 - Django: https://www.djangoproject.com/
 - Django Rest Framework: https://www.django-rest-framework.org/
 - React: https://reactjs.org/
-- How to install docker: https://docs.docker.com/engine/install/ñ
+- How to install docker: https://docs.docker.com/engine/install/
