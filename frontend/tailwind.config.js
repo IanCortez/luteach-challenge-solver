@@ -51,6 +51,15 @@ module.exports = {
         primary_70: {
           DEFAULT: "#ffa166",
         },
+        lightblue: {
+          dark: "#6FBBD3",
+          DEFAULT: "#ADD8E6",
+        },
+        bermuda: "#78dcca",
+        zinc: {
+          400: "#a1a1aa",
+          500: "#71717a",
+        },
       },
     },
   },

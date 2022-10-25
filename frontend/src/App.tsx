@@ -99,10 +99,10 @@ export default function App() {
           Crear
         </IconButton>
         <div className="text-center mx-4 space-y-2">
-          <p>Lista de bookings:</p>
-          <div className="bg-teal-300">
-            <table className="table-fixed border-separate border border-zinc-500">
-              <tr>
+          <h2 className="text-xl prose prose-stone">Lista de bookings</h2>
+          <div className="bg-bermuda">
+            <table className="table-auto border-separate border border-secondary">
+              <tr className="bg-primary">
                 <th className="border border-zinc-500">Buyer</th>
                 <th className="border border-zinc-500">Provider</th>
                 <th className="border border-zinc-500">Date</th>
@@ -113,7 +113,7 @@ export default function App() {
               {bookings.map((booking) => {
                 // TO DO: actualizar la pagina al eliminar un booking
                 return (
-                  <tr key={booking.id}>
+                  <tr className="bg-bermuda" key={booking.id}>
                     <td className="border border-zinc-500">{booking.buyer}</td>
                     <td className="border border-zinc-500">{booking.provider}</td>
                     <td className="border border-zinc-500">{booking.date.toDateString()}</td>
@@ -142,7 +142,7 @@ export default function App() {
           createNewBooking={createNewBooking}
         >
           <div>
-            <p className="font-bold text-lg ">Agendar una cita</p>
+            <p className="font-bold text-lg">Agendar una cita</p>
           </div>
         </CreateBookingSection>
       </Modal>
