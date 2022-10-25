@@ -100,8 +100,8 @@ export default function App() {
         </IconButton>
         <div className=" ">
           <p>Lista de bookings:</p>
-          <table>
-            <tr>
+          <table className="min-w-full divide-y divide-gray-200">
+            <tr className="bg-stone-300">
               <th>Buyer</th>
               <th>Provider</th>
               <th>Date</th>

@@ -13,11 +13,34 @@ class BookingTests(APITestCase):
             "buyer": "Juan Carlos",
             "provider" : "Pepe" ,
             "details": "Nothing",
-            "date": "2022-10-17T01:09:17.981Z",
+            "date": "2022-10-29T01:09:17.981Z",
             "duration": 60
         }
-        print(url)
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Booking.objects.count(), 1)
         self.assertEqual(Booking.objects.get().buyer, 'Juan Carlos')
+    
+    def test_create_invalid_booking(self):
+        """
+        Ensure we can't create a new booking object with invalid params
+        """
+        url = reverse('bookings:booking-list')
+        data = {
+            "buyer": "Pedro",
+            "provider": "Diego",
+            "details": "Nothing",
+            "date": "2022-10-14T01:09:17.981Z",
+            "duration": 120
+        }
+        response = self.clien.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        data = {
+            "buyer": "Manuel",
+            "provider": "Manuel",
+            "details": "Nothing",
+            "date": "2022-10-14T01:09:17.981Z",
+            "duration": 120
+        }
+        response = self.clien.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
