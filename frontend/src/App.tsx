@@ -98,27 +98,27 @@ export default function App() {
         >
           Crear
         </IconButton>
-        <div className=" ">
+        <div className="">
           <p>Lista de bookings:</p>
-          <table className="min-w-full divide-y divide-gray-200">
-            <tr className="bg-stone-300">
-              <th>Buyer</th>
-              <th>Provider</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Duration</th>
-              <th>Delete booking</th>       
+          <table className="table-fixed border-separate border border-zinc-500">
+            <tr>
+              <th className="border border-zinc-500">Buyer</th>
+              <th className="border border-zinc-500">Provider</th>
+              <th className="border border-zinc-500">Date</th>
+              <th className="border border-zinc-500">Time</th>
+              <th className="border border-zinc-500">Duration</th>
+              <th className="border border-zinc-500">Delete booking</th>       
             </tr>
             {bookings.map((booking) => {
               // TO DO: actualizar la pagina al eliminar un booking
               return (
                 <tr key={booking.id}>
-                  <td>{booking.buyer}</td>
-                  <td>{booking.provider}</td>
-                  <td>{booking.date.toDateString()}</td>
-                  <td>{booking.date.toTimeString()}</td>
-                  <td>{booking.duration} minutes</td>
-                  <td>
+                  <td className="border border-zinc-500">{booking.buyer}</td>
+                  <td className="border border-zinc-500">{booking.provider}</td>
+                  <td className="border border-zinc-500">{booking.date.toDateString()}</td>
+                  <td className="border border-zinc-500">{booking.date.toTimeString()}</td>
+                  <td className="border border-zinc-500">{booking.duration} minutes</td>
+                  <td className="border border-zinc-500">
                   <IconButton
                     onClick={() => {
                       deleteBooking(booking);
