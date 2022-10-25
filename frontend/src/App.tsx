@@ -8,12 +8,18 @@ import CreateBookingSection from "./components/CreateBookingSection";
 import { BookingsService } from "./services/bookings";
 import { Booking, BookingResponse } from "./services/types";
 import IconButton from "./components/IconButton";
+import ShowMessage from "./components/SubmissionMessage";
+import { ChevronLeftIcon } from "@heroicons/react/outline";
 import { AxiosError } from "axios";
 
 export default function App() {
   const [showCreateBookingModal, setShowCreateBookingModal] =
     useState<boolean>(false);
+  const [finishedCreateBookingModal, setFinishedCreateBookingModal] =
+    useState<boolean>(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
+
+  const [updatedBooking, setUpdatedBooking] = useState<boolean>(false);
 
   const useNewBookingForm = useForm<BookingResponse>({
     defaultValues: { date: new Date().toISOString() },
@@ -27,11 +33,15 @@ export default function App() {
     if (err) {
       console.log("Error in creating Booking");
       console.error(err);
+      throw err;
     }
 
     if (res) {
       setShowCreateBookingModal(false);
       fetchBookings();
+
+      setFinishedCreateBookingModal(true);
+      setUpdatedBooking(true);
     }
     useNewBookingForm.reset();
   };
@@ -59,6 +69,20 @@ export default function App() {
     }
   };
 
+  const deleteBooking = async (data: any) => {
+    const [res, err] = await asyncWrapper(BookingsService.deleteBooking(data));
+
+    if (err) {
+      console.log("Error in deleting Booking");
+      console.error(err);
+      throw new Error("Error in deleting Booking");
+    }
+    
+    if (res) {
+      fetchBookings();
+    }
+  };
+
   useEffect(() => {
     fetchBookings();
   }, []);
@@ -76,22 +100,38 @@ export default function App() {
         </IconButton>
         <div className=" ">
           <p>Lista de bookings:</p>
-          <p className="text-xs">Hazme bonito por favor</p>
-          {bookings && bookings.length > 0 ? (
-            bookings.map((booking) => {
+          <table>
+            <tr>
+              <th>Buyer</th>
+              <th>Provider</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Duration</th>
+              <th>Delete booking</th>       
+            </tr>
+            {bookings.map((booking) => {
+              // TO DO: actualizar la pagina al eliminar un booking
               return (
-                <div>
-                  Buyer: {booking.date.toDateString()}
-                  Provider: {booking.date.toDateString()}
-                  Date: {booking.date.toDateString()}
-                  Time: {booking.date.toDateString()}
-                  Duration: {booking.duration} minutes
-                </div>
-              );
-            })
-          ) : (
-            <div className="m-5">- No hay reservas</div>
-          )}
+                <tr key={booking.id}>
+                  <td>{booking.buyer}</td>
+                  <td>{booking.provider}</td>
+                  <td>{booking.date.toDateString()}</td>
+                  <td>{booking.date.toTimeString()}</td>
+                  <td>{booking.duration} minutes</td>
+                  <td>
+                  <IconButton
+                    onClick={() => {
+                      deleteBooking(booking);
+                      setBookings(bookings);
+                    }}
+                  >
+                    Borrar
+                  </IconButton>
+                  </td>
+                </tr>
+              )}
+            )}
+          </table>
         </div>
       </div>
       <Modal open={showCreateBookingModal} setOpen={setShowCreateBookingModal}>
@@ -103,6 +143,27 @@ export default function App() {
             <p className="font-bold text-lg ">Agendar una cita</p>
           </div>
         </CreateBookingSection>
+      </Modal>
+      <Modal open={finishedCreateBookingModal} setOpen={setFinishedCreateBookingModal}>
+        <div>
+          {/*TO DO: arreglar el mensaje al hacer un booking*/}
+          <button
+            type="button"
+            onClick={() => {
+                setFinishedCreateBookingModal(false);
+                setUpdatedBooking(false);
+              }
+            }
+            className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"  
+          >
+            <span className="sr-only">Cerrar</span>
+            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+          </button>
+          <ShowMessage
+            operationResult={updatedBooking}
+          >
+          </ShowMessage>
+        </div>
       </Modal>
     </div>
   );
